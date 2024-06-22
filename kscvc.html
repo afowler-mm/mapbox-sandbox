@@ -17,13 +17,14 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-    
-        h1, h2 {
+
+        h1,
+        h2 {
             color: #0b3d91;
             text-wrap: balance;
             line-height: 1.2;
         }
-    
+
         .map-container {
             border: 1px solid #ddd;
             position: relative;
@@ -32,14 +33,14 @@
             max-width: 100%;
             width: 100%;
         }
-    
+
         #map {
             position: absolute;
             top: 0;
             bottom: 0;
             width: 100%;
         }
-    
+
         #info-panel {
             position: absolute;
             top: 10px;
@@ -53,7 +54,7 @@
             z-index: 1;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-    
+
         .map-btn {
             background-color: #fc3d21;
             color: white;
@@ -64,34 +65,34 @@
             font-family: inherit;
             transition: background-color 0.3s ease;
         }
-    
+
         .map-btn:hover {
             background-color: #d32e1e;
         }
-    
+
         .map-btn.secondary {
             background-color: white;
             color: #333;
             border: 1px solid #ddd;
         }
-    
+
         .map-btn.secondary:hover {
             background-color: #f0f0f0;
         }
-    
+
         .expand-btn {
             position: absolute;
             top: 10px;
             right: 10px;
         }
-    
+
         .light-preset-btn {
             position: absolute;
             bottom: 30px;
             right: 10px;
             font-size: 20px;
         }
-    
+
         .fullscreen {
             position: fixed;
             top: 0;
@@ -100,18 +101,18 @@
             height: 100vh;
             z-index: 1000;
         }
-    
+
         .fullscreen #map {
             height: 100%;
         }
-    
+
         .fullscreen #info-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
         }
-    
+
         #info-bar {
             position: absolute;
             bottom: 0;
@@ -126,7 +127,7 @@
             text-transform: uppercase;
             z-index: 1;
         }
-    
+
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
@@ -175,6 +176,30 @@
     <section id="tour-stops">
         <h2>Tour Stops</h2>
         <ol>
+            <li data-center="-82.5,28.0" data-zoom="6" data-pitch="45" data-bearing="0" data-timeofday="day">
+                <h3>Florida Overview</h3>
+                <p>Let's start our journey with a view of Florida from space, showcasing the state's unique geography.
+                </p>
+                <div class="custom-features" hidden>
+                    <div class="poi" data-lat="28.5383" data-lon="-81.3792" data-label="Orlando" data-always-show-label="true"></div>
+                    <div class="poi" data-lat="28.4159" data-lon="-80.6077" data-label="Cape Canaveral"></div>
+                    <div class="poi" data-lat="25.7617" data-lon="-80.1918" data-label="Miami"></div>
+                </div>
+            </li>
+            <li data-center="-81.0,28.4" data-zoom="8" data-pitch="45" data-bearing="0" data-timeofday="night">
+                <h3>Central Florida</h3>
+                <p>Zoom in to see Central Florida, including Orlando and the Space Coast.</p>
+                <div class="custom-features" hidden>
+                    <div class="poi" data-lat="28.5383" data-lon="-81.3792" data-label="Downtown Orlando"></div>
+                    <div class="poi" data-lat="28.3852" data-lon="-81.5639" data-label="Walt Disney World"></div>
+                    <div class="poi" data-lat="28.4312" data-lon="-81.3081" data-label="Orlando International Airport">
+                    </div>
+                    <div class="poi" data-lat="28.5248" data-lon="-80.6832" data-label="Kennedy Space Center"></div>
+                    <div class="polygon"
+                        data-coordinates="[[-80.7214,28.6082],[-80.7031,28.6082],[-80.5993,28.4580],[-80.6475,28.4019],[-80.7214,28.6082]]"
+                        data-label="Kennedy Space Center"></div>
+                </div>
+            </li>
             <li data-center="-81.0,28.4" data-zoom="8" data-pitch="45" data-bearing="0" data-timeofday="night">
                 <h3>Orlando to Space Coast</h3>
                 <p>Kennedy Space Center is about an hour east of Orlando, on Florida's Space Coast.</p>
@@ -185,7 +210,8 @@
             </li>
             <li data-center="-80.6819,28.5235" data-zoom="17" data-pitch="60" data-bearing="-20" data-timeofday="dawn">
                 <h3>Visitor Complex Entrance</h3>
-                <p>Your journey begins here, at the main entrance of the Kennedy Space Center Visitor Complex. Start early: there's a lot to see!</p>
+                <p>Your journey begins here, at the main entrance of the Kennedy Space Center Visitor Complex. Start
+                    early: there's a lot to see!</p>
             </li>
             <li data-center="-80.6830,28.5236" data-zoom="19" data-pitch="73" data-bearing="40" data-timeofday="dawn">
                 <h3>Rocket Garden</h3>
@@ -225,7 +251,9 @@
             </li>
             <li data-center="-80.7813,28.5249" data-zoom="17" data-pitch="85" data-bearing="100" data-timeofday="dusk">
                 <h3>Spend the night</h3>
-                <p>You can't experience the KSC in just one day. Spend the night at our conveniently located partner hotel — you might even see a night launch from the rooftop bar — and wake up to sunrise over the Space Coast.</p>
+                <p>You can't experience the KSC in just one day. Spend the night at our conveniently located partner
+                    hotel — you might even see a night launch from the rooftop bar — and wake up to sunrise over the
+                    Space Coast.</p>
             </li>
         </ol>
     </section>
@@ -253,6 +281,9 @@
             let currentLightPresetIndex = 0;
             const stops = Array.from(document.querySelectorAll('#tour-stops li'));
 
+            let currentMarkers = [];
+            let currentPolygons = [];
+
             function updateView(index) {
                 const stop = stops[index];
                 const center = stop.dataset.center.split(',').map(Number);
@@ -264,11 +295,64 @@
                 map.flyTo({ center, zoom, pitch, bearing, duration: 3000, essential: true });
                 document.getElementById('stop-title').textContent = stop.querySelector('h3').textContent;
                 document.getElementById('stop-description').textContent = stop.querySelector('p').textContent;
-                
+
                 const lightPreset = lightPresets.find(preset => preset.name === timeofday);
                 if (lightPreset) {
                     map.setConfigProperty('basemap', 'lightPreset', lightPreset.name);
                     document.getElementById('lightPresetBtn').textContent = lightPreset.emoji;
+                }
+
+                // Clear existing markers and polygons
+                currentMarkers.forEach(marker => marker.remove());
+                currentMarkers = [];
+                currentPolygons.forEach(polygon => map.removeLayer(polygon.id));
+                currentPolygons = [];
+
+                // Add custom POIs and polygons
+                // Add custom POIs and polygons
+    const customFeatures = stop.querySelector('.custom-features');
+    if (customFeatures) {
+        customFeatures.querySelectorAll('.poi').forEach(poi => {
+            if (poi.dataset.alwaysShowLabel === 'true') {
+                // Create a custom HTML element for the marker
+                const el = document.createElement('div');
+                el.className = 'marker';
+                el.style.backgroundImage = 'url(https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png)';
+                el.style.width = '32px';
+                el.style.height = '40px';
+                el.style.backgroundSize = '100%';
+
+                // Create a label element
+                const label = document.createElement('div');
+                label.className = 'marker-label';
+                label.textContent = poi.dataset.label;
+                label.style.color = 'white';
+                label.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                label.style.padding = '2px 5px';
+                label.style.borderRadius = '3px';
+                label.style.fontSize = '12px';
+                label.style.whiteSpace = 'nowrap';
+                label.style.position = 'absolute';
+                label.style.bottom = '40px';
+                label.style.left = '50%';
+                label.style.transform = 'translateX(-50%)';
+
+                el.appendChild(label);
+
+                // Add marker to the map
+                const marker = new mapboxgl.Marker(el)
+                    .setLngLat([poi.dataset.lon, poi.dataset.lat])
+                    .addTo(map);
+                currentMarkers.push(marker);
+            } else {
+                // Use default marker with popup for other POIs
+                const marker = new mapboxgl.Marker()
+                    .setLngLat([poi.dataset.lon, poi.dataset.lat])
+                    .setPopup(new mapboxgl.Popup().setHTML(poi.dataset.label))
+                    .addTo(map);
+                currentMarkers.push(marker);
+            }
+        });
                 }
             }
 
