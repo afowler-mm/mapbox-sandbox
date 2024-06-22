@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Explore Kennedy Space Center: your Orlando side trip to the stars</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
-
     <style>
         body {
             font-family: "Neue Haas Grotesk Text", "Nimbus Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
@@ -19,13 +17,13 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-
-        h1,
-        h2 {
+    
+        h1, h2 {
             color: #0b3d91;
             text-wrap: balance;
+            line-height: 1.2;
         }
-
+    
         .map-container {
             border: 1px solid #ddd;
             position: relative;
@@ -34,14 +32,14 @@
             max-width: 100%;
             width: 100%;
         }
-
+    
         #map {
             position: absolute;
             top: 0;
             bottom: 0;
             width: 100%;
         }
-
+    
         #info-panel {
             position: absolute;
             top: 10px;
@@ -55,7 +53,7 @@
             z-index: 1;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
+    
         .map-btn {
             background-color: #fc3d21;
             color: white;
@@ -66,34 +64,34 @@
             font-family: inherit;
             transition: background-color 0.3s ease;
         }
-
+    
         .map-btn:hover {
             background-color: #d32e1e;
         }
-
+    
         .map-btn.secondary {
             background-color: white;
             color: #333;
             border: 1px solid #ddd;
         }
-
+    
         .map-btn.secondary:hover {
             background-color: #f0f0f0;
         }
-
+    
         .expand-btn {
             position: absolute;
             top: 10px;
             right: 10px;
         }
-
+    
         .light-preset-btn {
             position: absolute;
             bottom: 30px;
             right: 10px;
             font-size: 20px;
         }
-
+    
         .fullscreen {
             position: fixed;
             top: 0;
@@ -102,18 +100,18 @@
             height: 100vh;
             z-index: 1000;
         }
-
+    
         .fullscreen #map {
             height: 100%;
         }
-
+    
         .fullscreen #info-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
         }
-
+    
         #info-bar {
             position: absolute;
             bottom: 0;
@@ -128,7 +126,7 @@
             text-transform: uppercase;
             z-index: 1;
         }
-
+    
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
@@ -174,122 +172,100 @@
         <li><strong>Astronaut Encounters:</strong> Meet a real NASA astronaut and hear their stories.</li>
     </ul>
 
+    <section id="tour-stops">
+        <h2>Tour Stops</h2>
+        <ol>
+            <li data-center="-81.0,28.4" data-zoom="8" data-pitch="45" data-bearing="0" data-timeofday="night">
+                <h3>Orlando to Space Coast</h3>
+                <p>Kennedy Space Center is about an hour east of Orlando, on Florida's Space Coast.</p>
+            </li>
+            <li data-center="-80.6518,28.5728" data-zoom="11" data-pitch="60" data-bearing="20" data-timeofday="night">
+                <h3>Kennedy Space Center Overview</h3>
+                <p>KSC covers 144,000 acres, showcasing the sheer scale of space operations.</p>
+            </li>
+            <li data-center="-80.6819,28.5235" data-zoom="17" data-pitch="60" data-bearing="-20" data-timeofday="dawn">
+                <h3>Visitor Complex Entrance</h3>
+                <p>Your journey begins here, at the main entrance of the Kennedy Space Center Visitor Complex. Start early: there's a lot to see!</p>
+            </li>
+            <li data-center="-80.6830,28.5236" data-zoom="19" data-pitch="73" data-bearing="40" data-timeofday="dawn">
+                <h3>Rocket Garden</h3>
+                <p>Walk among giants of space exploration history in this outdoor display of historic rockets.</p>
+            </li>
+            <li data-center="-80.6800,28.5253" data-zoom="18" data-pitch="81" data-bearing="35" data-timeofday="dawn">
+                <h3>Space Shuttle Atlantis Exhibit</h3>
+                <p>Get an up-close look at Space Shuttle Atlantis, suspended as if in orbit.</p>
+            </li>
+            <li data-center="-80.6831,28.5228" data-zoom="18" data-pitch="72" data-bearing="-123" data-timeofday="day">
+                <h3>Heroes & Legends</h3>
+                <p>Celebrate the pioneers of NASA's early space programs at this immersive exhibit.</p>
+            </li>
+            <li data-center="-80.6809,28.5245" data-zoom="18" data-pitch="65" data-bearing="-30" data-timeofday="day">
+                <h3>NASA Now</h3>
+                <p>Explore the current and future innovations in space exploration technology.</p>
+            </li>
+            <li data-center="-80.6810,28.5240" data-zoom="18" data-pitch="55" data-bearing="131" data-timeofday="day">
+                <h3>Bus Tour Departure</h3>
+                <p>Board the bus for a tour of Kennedy Space Center's restricted areas.</p>
+            </li>
+            <li data-center="-80.6509,28.5860" data-zoom="16.5" data-pitch="60" data-bearing="150" data-timeofday="day">
+                <h3>Vehicle Assembly Building</h3>
+                <p>One of the largest buildings by volume, where NASA assembles massive rockets.</p>
+            </li>
+            <li data-center="-80.6041,28.6083" data-zoom="16" data-pitch="60" data-bearing="30" data-timeofday="day">
+                <h3>Launch Pad 39A</h3>
+                <p>Historic launch pad used for Apollo and Space Shuttle missions, now used by SpaceX.</p>
+            </li>
+            <li data-center="-80.6214,28.6275" data-zoom="16" data-pitch="60" data-bearing="-30" data-timeofday="day">
+                <h3>Launch Pad 39B</h3>
+                <p>Another historic launch pad, now prepared for NASA's future Artemis missions to the Moon.</p>
+            </li>
+            <li data-center="-80.6833,28.5253" data-zoom="17" data-pitch="60" data-bearing="0" data-timeofday="day">
+                <h3>Back to the Visitor Complex</h3>
+                <p>Return to the Visitor Complex for more exhibits, dining, and shopping.</p>
+            </li>
+            <li data-center="-80.7813,28.5249" data-zoom="17" data-pitch="85" data-bearing="100" data-timeofday="dusk">
+                <h3>Spend the night</h3>
+                <p>You can't experience the KSC in just one day. Spend the night at our conveniently located partner hotel — you might even see a night launch from the rooftop bar — and wake up to sunrise over the Space Coast.</p>
+            </li>
+        </ol>
+    </section>
+
     <script>
-        // CMS-configurable options
-        const tourConfig = {
-            mapboxToken: 'pk.eyJ1IjoiYXNodXR0bC1tbSIsImEiOiJjbHhjN254dXAwOHd4MmtwdG9lbzhubzZ0In0.cN5bXSdASFTHWEEdYMCLTg',
-
-            // Initial map view
-            initialView: { center: [-81.0, 28.4], zoom: 8, pitch: 45, bearing: 0 },
-
-            // Tour stops - each object represents a location in the tour
-            stops: [
-                {
-                    title: "Orlando to Space Coast",
-                    center: [-81.0, 28.4], zoom: 8, pitch: 45, bearing: 0,
-                    description: "Kennedy Space Center is about an hour east of Orlando, on Florida's Space Coast.",
-                    timeofday: 'night'
-                },
-                {
-                    title: "Kennedy Space Center Overview",
-                    center: [-80.6518, 28.5728], zoom: 11, pitch: 60, bearing: 20,
-                    description: "KSC covers 144,000 acres, showcasing the sheer scale of space operations.",
-                    timeofday: 'night'
-                },
-                {
-                    title: "Visitor Complex Entrance",
-                    center: [-80.6819, 28.5235], zoom: 17, pitch: 60, bearing: -20,
-                    description: "Your journey begins here, at the main entrance of the Kennedy Space Center Visitor Complex. Start early: there's a lot to see!",
-                    timeofday: 'dawn'
-                },
-                {
-                    title: "Rocket Garden",
-                    center: [-80.6830, 28.5236], zoom: 19, pitch: 73, bearing: 40,
-                    description: "Walk among giants of space exploration history in this outdoor display of historic rockets.",
-                    timeofday: 'dawn'
-                },
-                {
-                    title: "Space Shuttle Atlantis Exhibit",
-                    center: [-80.6800, 28.5253], zoom: 18, pitch: 81, bearing: 35,
-                    description: "Get an up-close look at Space Shuttle Atlantis, suspended as if in orbit.",
-                    timeofday: 'dawn'
-                },
-                {
-                    title: "Heroes & Legends",
-                    center: [-80.6831, 28.5228], zoom: 18, pitch: 72, bearing: -123,
-                    description: "Celebrate the pioneers of NASA's early space programs at this immersive exhibit.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "NASA Now",
-                    center: [-80.6809, 28.5245], zoom: 18, pitch: 65, bearing: -30,
-                    description: "Explore the current and future innovations in space exploration technology.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Bus Tour Departure",
-                    center: [-80.6810, 28.5240], zoom: 18, pitch: 55, bearing: 131,
-                    description: "Board the bus for a tour of Kennedy Space Center's restricted areas.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Vehicle Assembly Building",
-                    center: [-80.6509, 28.5860], zoom: 16.5, pitch: 60, bearing: 150,
-                    description: "One of the largest buildings by volume, where NASA assembles massive rockets.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Launch Pad 39A",
-                    center: [-80.6041, 28.6083], zoom: 16, pitch: 60, bearing: 30,
-                    description: "Historic launch pad used for Apollo and Space Shuttle missions, now used by SpaceX.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Launch Pad 39B",
-                    center: [-80.6214, 28.6275], zoom: 16, pitch: 60, bearing: -30,
-                    description: "Another historic launch pad, now prepared for NASA's future Artemis missions to the Moon.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Back to the Visitor Complex",
-                    center: [-80.6833, 28.5253], zoom: 17, pitch: 60, bearing: 0,
-                    description: "Return to the Visitor Complex for more exhibits, dining, and shopping.",
-                    timeofday: 'day'
-                },
-                {
-                    title: "Spend the night",
-                    center: [-80.7813, 28.5249], zoom: 17, pitch: 85, bearing: 100,
-                    description: "You can't experience the KSC in just one day. Spend the night at our conveniently located partner hotel — you might even see a night launch from the rooftop bar — and wake up to sunrise over the Space Coast.",
-                    timeofday: 'dusk'
-                }
-            ],
-
-            lightPresets: [
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const mapboxToken = 'pk.eyJ1IjoiYXNodXR0bC1tbSIsImEiOiJjbHhjN254dXAwOHd4MmtwdG9lbzhubzZ0In0.cN5bXSdASFTHWEEdYMCLTg';
+            const initialView = { center: [-81.0, 28.4], zoom: 8, pitch: 45, bearing: 0 };
+            const lightPresets = [
                 { name: 'day', emoji: '🌞' },
                 { name: 'dusk', emoji: '🌇' },
                 { name: 'night', emoji: '🌜' },
                 { name: 'dawn', emoji: '🌅' }
-            ]
-        };
+            ];
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            mapboxgl.accessToken = tourConfig.mapboxToken;
+            mapboxgl.accessToken = mapboxToken;
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/standard',
-                ...tourConfig.initialView,
+                ...initialView,
                 projection: 'globe'
             });
 
             let currentStop = 0;
             let currentLightPresetIndex = 0;
+            const stops = Array.from(document.querySelectorAll('#tour-stops li'));
 
             function updateView(index) {
-                const stop = tourConfig.stops[index];
-                map.flyTo({ ...stop, duration: 3000, essential: true });
-                document.getElementById('stop-title').textContent = stop.title;
-                document.getElementById('stop-description').textContent = stop.description;
-                const lightPreset = tourConfig.lightPresets.find(preset => preset.name === stop.timeofday);
+                const stop = stops[index];
+                const center = stop.dataset.center.split(',').map(Number);
+                const zoom = Number(stop.dataset.zoom);
+                const pitch = Number(stop.dataset.pitch);
+                const bearing = Number(stop.dataset.bearing);
+                const timeofday = stop.dataset.timeofday;
+
+                map.flyTo({ center, zoom, pitch, bearing, duration: 3000, essential: true });
+                document.getElementById('stop-title').textContent = stop.querySelector('h3').textContent;
+                document.getElementById('stop-description').textContent = stop.querySelector('p').textContent;
+                
+                const lightPreset = lightPresets.find(preset => preset.name === timeofday);
                 if (lightPreset) {
                     map.setConfigProperty('basemap', 'lightPreset', lightPreset.name);
                     document.getElementById('lightPresetBtn').textContent = lightPreset.emoji;
@@ -301,7 +277,7 @@
             });
 
             document.getElementById('nextBtn').addEventListener('click', () => {
-                if (currentStop < tourConfig.stops.length - 1) updateView(++currentStop);
+                if (currentStop < stops.length - 1) updateView(++currentStop);
             });
 
             const fullscreenBtn = document.getElementById('fullscreenBtn');
@@ -315,8 +291,8 @@
             });
 
             lightPresetBtn.addEventListener('click', () => {
-                currentLightPresetIndex = (currentLightPresetIndex + 1) % tourConfig.lightPresets.length;
-                const newPreset = tourConfig.lightPresets[currentLightPresetIndex];
+                currentLightPresetIndex = (currentLightPresetIndex + 1) % lightPresets.length;
+                const newPreset = lightPresets[currentLightPresetIndex];
                 map.setConfigProperty('basemap', 'lightPreset', newPreset.name);
                 lightPresetBtn.textContent = newPreset.emoji;
             });
