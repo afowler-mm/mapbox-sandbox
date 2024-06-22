@@ -134,10 +134,6 @@
             justify-content: space-between;
             margin-top: 10px;
         }
-
-        .mapboxgl-popup {
-            max-width: 200px;
-        }
     </style>
 </head>
 
@@ -146,7 +142,7 @@
 
     <p>When visiting Orlando, don't miss the chance to witness space exploration history and cutting-edge technology at
         the Kennedy Space Center. Just an hour's drive east of Orlando's theme parks, KSC offers an unforgettable
-        glimpse of humankind’s history and future.</p>
+        glimpse of humankind's history and future.</p>
 
     <div class="map-container" id="mapContainer">
         <div id="map"></div>
@@ -209,22 +205,14 @@
                 {
                     title: "Rocket Garden",
                     center: [-80.6830, 28.5236], zoom: 19, pitch: 73, bearing: 40,
-                    description: "Walk among giants of space exploration history in this outdoor display of historic rockets. (Click the red dots to see how we could add POIs to some of these tour stops.)",
-                    timeofday: 'dawn',
-                    pois: [
-                        { lngLat: [-80.6833, 28.5238], name: "Mercury-Redstone Rocket", description: "This rocket type launched the first American into space." },
-                        { lngLat: [-80.6828, 28.5235], name: "Titan II Rocket", description: "Used in the Gemini program, this rocket prepared NASA for Apollo missions." }
-                    ]
+                    description: "Walk among giants of space exploration history in this outdoor display of historic rockets.",
+                    timeofday: 'dawn'
                 },
                 {
                     title: "Space Shuttle Atlantis Exhibit",
                     center: [-80.6800, 28.5253], zoom: 18, pitch: 81, bearing: 35,
                     description: "Get an up-close look at Space Shuttle Atlantis, suspended as if in orbit.",
-                    timeofday: 'dawn',
-                    pois: [
-                        { lngLat: [-80.6802, 28.5255], name: "Shuttle Launch Experience", description: "A simulator that lets you feel the thrill of launching into space." },
-                        { lngLat: [-80.6798, 28.5251], name: "ISS Module", description: "Explore a replica of the International Space Station's modules." }
-                    ]
+                    timeofday: 'dawn'
                 },
                 {
                     title: "Heroes & Legends",
@@ -295,7 +283,6 @@
 
             let currentStop = 0;
             let currentLightPresetIndex = 0;
-            let currentMarkers = [];
 
             function updateView(index) {
                 const stop = tourConfig.stops[index];
@@ -306,30 +293,6 @@
                 if (lightPreset) {
                     map.setConfigProperty('basemap', 'lightPreset', lightPreset.name);
                     document.getElementById('lightPresetBtn').textContent = lightPreset.emoji;
-                }
-
-                // Remove existing markers
-                currentMarkers.forEach(marker => marker.remove());
-                currentMarkers = [];
-
-                // Add new markers for this stop's POIs
-                if (stop.pois) {
-                    stop.pois.forEach(poi => {
-                        const el = document.createElement('div');
-                        el.className = 'marker';
-                        el.style.backgroundColor = '#fc3d21';
-                        el.style.width = '15px';
-                        el.style.height = '15px';
-                        el.style.borderRadius = '50%';
-
-                        const marker = new mapboxgl.Marker(el)
-                            .setLngLat(poi.lngLat)
-                            .setPopup(new mapboxgl.Popup({ offset: 25 })
-                                .setHTML(`<h3>${poi.name}</h3><p>${poi.description}</p>`))
-                            .addTo(map);
-
-                        currentMarkers.push(marker);
-                    });
                 }
             }
 
@@ -369,7 +332,7 @@
 
             map.on('move', updateInfoBar);
 
-            map.on('load', () => {
+            map.on('style.load', () => {
                 updateView(currentStop);
             });
         });
