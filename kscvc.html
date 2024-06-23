@@ -156,6 +156,7 @@
         <button class="map-btn secondary expand-btn" id="fullscreenBtn">⛶</button>
         <button class="map-btn secondary light-preset-btn" id="lightPresetBtn">🌞</button>
         <div id="info-bar">
+            <!-- to help CMS admins set up tour stops -->
             Lat <span id="lat"></span> Lng <span id="lng"></span> Zoom <span id="zoom"></span> Pitch <span
                 id="pitch"></span> Bearing <span id="bearing"></span>
         </div>
@@ -177,7 +178,7 @@
         <h2>Tour Stops</h2>
         <ol>
             <li data-center="-81.5,28.4" data-zoom="3" data-pitch="50" data-bearing="0" data-timeofday="dusk">
-                <h3>A Journey to Remember</h3>
+                <h3>A journey to remember</h3>
                 <p>Wherever in the world you're coming from, prepare for an unforgettable adventure at the Kennedy Space
                     Center Visitor Complex.</p>
             </li>
@@ -196,7 +197,7 @@
                 </div>
             </li>
             <li data-center="-80.6518,28.5728" data-zoom="11" data-pitch="60" data-bearing="20" data-timeofday="night">
-                <h3>Space Center Region Overview</h3>
+                <h3>The Space Coast</h3>
                 <p>Discover the vast expanse of Kennedy Space Center and its surroundings.</p>
                 <!-- <div class="custom-features" hidden>
                     <div class="polygon"
@@ -218,7 +219,7 @@
                 <p>Walk among giants of space exploration history in this outdoor display of historic rockets.</p>
             </li>
             <li data-center="-80.6800,28.5253" data-zoom="18" data-pitch="81" data-bearing="35" data-timeofday="day">
-                <h3>Space Shuttle Atlantis Exhibit</h3>
+                <h3>Space Shuttle <i>Atlantis</i> exhibit</h3>
                 <p>Get an up-close look at Space Shuttle Atlantis, suspended as if in orbit.</p>
             </li>
             <li data-center="-80.6831,28.5228" data-zoom="18" data-pitch="72" data-bearing="-123" data-timeofday="day">
@@ -230,18 +231,18 @@
                 <p>Explore the current and future innovations in space exploration technology.</p>
             </li>
             <li data-center="-80.6810,28.5240" data-zoom="18" data-pitch="55" data-bearing="131" data-timeofday="day">
-                <h3>Bus Tour Departure</h3>
+                <h3>Bus tour departure</h3>
                 <p>Board the bus for a tour of Kennedy Space Center's restricted areas.</p>
             </li>
             <li data-center="-80.6509,28.5860" data-zoom="16.5" data-pitch="60" data-bearing="150" data-timeofday="day">
                 <h3>Vehicle Assembly Building</h3>
                 <p>One of the largest buildings by volume, where NASA assembles massive rockets.</p>
             </li>
-            <li data-center="-80.6041,28.6083" data-zoom="16" data-pitch="60" data-bearing="30" data-timeofday="day">
+            <li data-center="-80.6041,28.6083" data-zoom="16" data-pitch="60" data-bearing="30" data-timeofday="dusk">
                 <h3>Launch Pad 39A</h3>
                 <p>Historic launch pad used for Apollo and Space Shuttle missions, now used by SpaceX.</p>
             </li>
-            <li data-center="-80.6214,28.6275" data-zoom="16" data-pitch="60" data-bearing="-30" data-timeofday="day">
+            <li data-center="-80.6214,28.6275" data-zoom="16" data-pitch="60" data-bearing="-30" data-timeofday="dusk">
                 <h3>Launch Pad 39B</h3>
                 <p>Another historic launch pad, now prepared for NASA's future Artemis missions to the Moon.</p>
             </li>
@@ -407,6 +408,7 @@
             });
 
             function updateInfoBar() {
+                // to help CMS admins set up tour stops
                 const center = map.getCenter();
                 document.getElementById('lat').textContent = center.lat.toFixed(4);
                 document.getElementById('lng').textContent = center.lng.toFixed(4);
